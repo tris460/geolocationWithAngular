@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MyFirstApp';
-  HolaMundo: string;
+  helloWorld: string;
   constructor() {
-    this.HolaMundo = "Hola Mundo";
+    this.helloWorld = "Hello World";
   }
 }
