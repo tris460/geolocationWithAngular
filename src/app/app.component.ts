@@ -8,7 +8,15 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'MyFirstApp';
   helloWorld: string;
+  userName: string;
   constructor() {
     this.helloWorld = "Hello World";
+    this.userName = '';
+  }
+  greet(){
+    alert("Hello " + this.userName);
+  }
+  clear(){
+    this.userName ='';
   }
 }

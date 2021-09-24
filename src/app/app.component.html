@@ -1,8 +1,16 @@
 <div id="container">
     <h1> {{helloWorld}} </h1>
 </div>
-<div class="input-group mb-3">
-    <span class="input-group-text" id="basic-addon1">@</span>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  
+<div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">What's your name?</span>
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" [(ngModel)]="userName">
+    </div>
+    <div>
+        <button type="button" class="btn btn-info" (click)="greet()">Submit</button>
+        <button type="button" class="btn btn-danger" (click)="clear()">Clear</button>
+    </div>
+</div>
+<div>
+    {{userName}}
+</div>
