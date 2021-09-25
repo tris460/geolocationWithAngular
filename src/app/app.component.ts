@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
     this.result = 0;
     this.note = '';
   }
+  // What to do when the app is carged 
   ngOnInit(){
     if(!navigator.geolocation) {
       alert("Geolocation is nos available");
@@ -31,26 +32,32 @@ export class AppComponent implements OnInit {
       })
     }
   }
+  // Greet the user
   greet(){
     alert("Hello " + this.userName);
   }
+  // Clear the inputs
   clear(){
     this.userName ='';
     this.firstNumber = 0;
     this.secondNumber = 0;
   }
+  // Makes a sum
   add() {
     this.result = parseFloat(this.firstNumber.toString()) + parseFloat(this.secondNumber.toString());
     this.note = '';
   }
+  // Do a subtraction
   substract() {
     this.result = this.firstNumber - this.secondNumber;
     this.note = '';
  }
+ // Do a multiplication
   multiply() {
     this.result = this.firstNumber * this.secondNumber;
     this.note = '';
   }
+  // Make a division
   divide(){
     if (this.secondNumber == 0){
       this.result = 0;
