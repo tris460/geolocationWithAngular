@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'MyFirstApp';
   helloWorld: string;
   userName: string;
@@ -20,6 +20,16 @@ export class AppComponent {
     this.secondNumber = 0;
     this.result = 0;
     this.note = '';
+  }
+  ngOnInit(){
+    if(!navigator.geolocation) {
+      alert("Geolocation is nos available");
+    } else {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(`Data position: ${position}`);
+        alert(`Your current location [${position.coords.latitude} - ${position.coords.longitude}]`);
+      })
+    }
   }
   greet(){
     alert("Hello " + this.userName);
