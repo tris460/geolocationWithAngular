@@ -12,12 +12,14 @@ export class AppComponent {
   firstNumber: number;
   secondNumber: number;
   result: number;
+  note: string;
   constructor() {
     this.helloWorld = "Hello World";
     this.userName = '';
     this.firstNumber = 0;
     this.secondNumber = 0;
     this.result = 0;
+    this.note = '';
   }
   greet(){
     alert("Hello " + this.userName);
@@ -29,14 +31,22 @@ export class AppComponent {
   }
   add() {
     this.result = parseFloat(this.firstNumber.toString()) + parseFloat(this.secondNumber.toString());
+    this.note = '';
   }
   substract() {
     this.result = this.firstNumber - this.secondNumber;
+    this.note = '';
  }
   multiply() {
     this.result = this.firstNumber * this.secondNumber;
+    this.note = '';
   }
   divide(){
-    this.result = this.firstNumber / this.secondNumber;
+    if (this.secondNumber == 0){
+      this.result = 0;
+      this.note = "The second number must be greather than 0";
+    } else {
+      this.result = this.firstNumber / this.secondNumber;
+    }
   }
 }
