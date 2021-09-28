@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   }
   // Makes a sum
   add() {
-    this.result = parseFloat(this.firstNumber.toString()) + parseFloat(this.secondNumber.toString());
+    this.result = this.firstNumber + this.secondNumber;
     this.note = '';
   }
   // Do a subtraction
