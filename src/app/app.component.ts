@@ -8,75 +8,54 @@ declare const L: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'MyFirstApp';
-  helloWorld: string;
-  userName: string;
-  firstNumber: number;
-  secondNumber: number;
-  result: number;
-  note: string;
-  constructor() {
-    this.helloWorld = "Hello World";
-    this.userName = '';
-    this.firstNumber = 0;
-    this.secondNumber = 0;
-    this.result = 0;
-    this.note = '';
-  }
+  title = 'LocationApp';
+  
   // What to do when the app is carged 
   ngOnInit(){
     if(!navigator.geolocation) {
       alert("Geolocation is nos available");
-    } else {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(`Data position: ${position}`);
-        console.log(`Your current location [${position.coords.latitude} - ${position.coords.longitude}]`);
-        const latLong = [position.coords.latitude, position.coords.longitude];
-        const mymap = L.map('mapid').setView(latLong, 13);
+    } 
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coords = position.coords;
+      const latLong = [coords.latitude, coords.longitude];
+      const mymap = L.map('mapid').setView(latLong, 13);
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          maxZoom: 18,
-          id: 'mapbox/streets-v11',
-          tileSize: 512,
-          zoomOffset: -1,
-          accessToken: 'pk.eyJ1IjoidHJpczQ2MCIsImEiOiJja3U5NGh3ZjYwMHdvMnNwNGRkaW5mOWl6In0.QmylwVimyPHfEpm0TQob3A'
-        }).addTo(mymap);
-      })
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoidHJpczQ2MCIsImEiOiJja3U5NGh3ZjYwMHdvMnNwNGRkaW5mOWl6In0.QmylwVimyPHfEpm0TQob3A'
+      }).addTo(mymap);
+
+      let marker = L.marker(latLong).addTo(mymap);
+      marker.bindPopup('<b>Hi</b>').openPopup();
+
+      let popup = L.popup()
+        .setLatLng([coords.latitude, coords.longitude])
+        .setContent('I am a popup')
+        .openOn(mymap);
+      });
+      this.watchPosition();
+    }
+
+    watchPosition() {
+      let desLat = 0;
+      let desLon = 0;
+      let id = navigator.geolocation.watchPosition((position) => {
+        console.log(`Lat: ${position.coords.latitude}, Lon: ${position.coords.longitude}`);
+        if (position.coords.latitude === desLat) {
+          navigator.geolocation.clearWatch(id);
+        }
+      },
+      (err)=>{
+        console.log(`Error: ${err}`);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      });
     }
   }
-  // Greet the user
-  greet(){
-    alert("Hello " + this.userName);
-  }
-  // Clear the inputs
-  clear(){
-    this.userName ='';
-    this.firstNumber = 0;
-    this.secondNumber = 0;
-  }
-  // Makes a sum
-  add() {
-    this.result = this.firstNumber + this.secondNumber;
-    this.note = '';
-  }
-  // Do a subtraction
-  substract() {
-    this.result = this.firstNumber - this.secondNumber;
-    this.note = '';
- }
- // Do a multiplication
-  multiply() {
-    this.result = this.firstNumber * this.secondNumber;
-    this.note = '';
-  }
-  // Make a division
-  divide(){
-    if (this.secondNumber == 0){
-      this.result = 0;
-      this.note = "The second number must be greather than 0";
-    } else {
-      this.result = this.firstNumber / this.secondNumber;
-    }
-  }
-}
