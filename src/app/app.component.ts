@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare const L: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,7 +30,18 @@ export class AppComponent implements OnInit {
     } else {
       navigator.geolocation.getCurrentPosition(function(position) {
         console.log(`Data position: ${position}`);
-        alert(`Your current location [${position.coords.latitude} - ${position.coords.longitude}]`);
+        console.log(`Your current location [${position.coords.latitude} - ${position.coords.longitude}]`);
+        const latLong = [position.coords.latitude, position.coords.longitude];
+        const mymap = L.map('mapid').setView(latLong, 13);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: 'your.mapbox.access.token'
+        }).addTo(mymap);
       })
     }
   }
