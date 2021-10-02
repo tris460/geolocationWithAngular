@@ -49,9 +49,19 @@ export class AppComponent implements OnInit {
       let arcgisOnlineProvider = L.esri.Geocoding.arcgisOnlineProvider({
         apikey: 'AAPK2b894d73745048c8b59bbd997cfdace1-4SZpfhfwEIeF6QFmZG-1NKVqLEm_stfBKmRJVvSdmXoii7tC8-b3rzIb5HBxoqu' // replace with your api key - https://developers.arcgis.com
       });
-      L.esri.Geocoding.geosearch({
+      let searcher = L.esri.Geocoding.geosearch({
         providers: [arcgisOnlineProvider]
       }).addTo(mymap);
+
+      let results = L.layerGroup().addTo(mymap);
+
+      searcher.on('results', (data: any) => {
+        results.clearLayers();
+        for(let i = data.results.length - 1; i >= 0; i--) {
+          results.addLayer(L.marker(data.results[i].latlng));
+        }
+        
+      })
       });
       this.watchPosition();
     }
