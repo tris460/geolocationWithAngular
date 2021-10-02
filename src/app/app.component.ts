@@ -30,12 +30,21 @@ export class AppComponent implements OnInit {
       }).addTo(mymap);
 
       let marker = L.marker(latLong).addTo(mymap);
-      marker.bindPopup('<b>Hi</b>').openPopup();
+      marker.bindPopup("<b>You're here</b>").openPopup();
 
       let popup = L.popup()
         .setLatLng([coords.latitude, coords.longitude])
         .setContent('I am a popup')
         .openOn(mymap);
+
+      // Add leaflet-routing-machine
+      L.Routing.control({
+        waypoints: [
+          L.latLng(coords.latitude, coords.longitude),
+          L.latLng(21.883623132655234, -102.295269894441786)
+        ]
+      }).addTo(mymap);
+
       });
       this.watchPosition();
     }
