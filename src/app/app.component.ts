@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
           id: 'mapbox/streets-v11',
           tileSize: 512,
           zoomOffset: -1,
-          accessToken: 'your.mapbox.access.token'
+          accessToken: 'pk.eyJ1IjoidHJpczQ2MCIsImEiOiJja3U5NGh3ZjYwMHdvMnNwNGRkaW5mOWl6In0.QmylwVimyPHfEpm0TQob3A'
         }).addTo(mymap);
       })
     }
