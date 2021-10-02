@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       const latLong = [coords.latitude, coords.longitude];
-      const mymap = L.map('mapid').setView(latLong, 13);
+      const mymap = L.map('mapid').setView(latLong, 8);
 
       L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -45,6 +45,13 @@ export class AppComponent implements OnInit {
         ]
       }).addTo(mymap);
 
+      // Add Esri leaflet
+      let arcgisOnlineProvider = L.esri.Geocoding.arcgisOnlineProvider({
+        apikey: 'AAPK2b894d73745048c8b59bbd997cfdace1-4SZpfhfwEIeF6QFmZG-1NKVqLEm_stfBKmRJVvSdmXoii7tC8-b3rzIb5HBxoqu' // replace with your api key - https://developers.arcgis.com
+      });
+      L.esri.Geocoding.geosearch({
+        providers: [arcgisOnlineProvider]
+      }).addTo(mymap);
       });
       this.watchPosition();
     }
